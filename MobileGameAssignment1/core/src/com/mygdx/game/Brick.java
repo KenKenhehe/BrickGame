@@ -23,6 +23,7 @@ public class Brick {
             brickTexturesToChoose[i] = new Texture("Brick" + (i + 1) + ".png");
         }
         this.position = position;
+        //choose the brick randomly
         brickTexture = brickTexturesToChoose[MathUtils.random(3)];
         collider = new Rectangle(position.x, position.y, brickTexture.getWidth(), brickTexture.getHeight());
     }

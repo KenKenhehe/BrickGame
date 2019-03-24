@@ -22,7 +22,7 @@ public class GameScreen implements Screen{
     DelayedRemovalArray<Brick> bricks;
     boolean canLaunch = false;
 
-    int brickAmount = 20;
+    int brickAmount = 1;
 
     public GameScreen(MyGdxGame game){
         this.game = game;
@@ -30,9 +30,8 @@ public class GameScreen implements Screen{
 
     public void init(){
         bricks = new DelayedRemovalArray<Brick>();
-        //paddle = new Paddle(new Vector2(screenWidth / 2 - 16, screenHeight));
-        paddle = new Paddle(new Vector2(0, 0));
 
+        paddle = new Paddle(new Vector2(0, 0));
         paddle.position = new Vector2(screenWidth / 2 - paddle.getTexture().getWidth() /2,32);
 
         ball = new Ball(new Vector2(0, 0), paddle);
@@ -41,16 +40,16 @@ public class GameScreen implements Screen{
                 paddle.position.y + paddle.getTexture().getHeight() + 16);
 
         batch = new SpriteBatch();
-        System.out.print(paddle.position);
+
         for(int i = 0; i < brickAmount; i++){
             bricks.add(new Brick(new Vector2(0, 0)));
             bricks.get(i).position = new Vector2(
-                    (bricks.get(i).brickTexture.getWidth()/2 + 10) * i,
+                    (bricks.get(i).brickTexture.getWidth()) * i,
                     screenHeight - 32
             );
             bricks.get(i).collider.setPosition(bricks.get(i).position);
-        }
 
+        }
     }
 
 
@@ -58,7 +57,12 @@ public class GameScreen implements Screen{
         paddle.update(deltaTime);
         ball.update(deltaTime);
         if(ball.position.y < -10){
-            game.setScreen(MyGdxGame.menuScreen);
+            MyGdxGame.finishedScreen = new FinishedScreen(game, false);
+            game.setScreen(MyGdxGame.finishedScreen);
+        }
+        else if(bricks.size <= 0){
+            MyGdxGame.finishedScreen = new FinishedScreen(game, true);
+            game.setScreen(MyGdxGame.finishedScreen);
         }
     }
 
@@ -79,13 +83,12 @@ public class GameScreen implements Screen{
 
         for (Brick brick: bricks) {
             brick.render(batch);
+            //if collide, destroy the corresponding brick
             if(ball.collider.overlaps(brick.collider)) {
-                bricks.removeValue(brick, false);
-                System.out.print("Collide!!!");
+                bricks.removeValue(brick, true);
+                ball.ySpeed *= -1;
             }
         }
-
-
         batch.end();
     }
 
@@ -113,5 +116,8 @@ public class GameScreen implements Screen{
     public void dispose () {
         batch.dispose();
         paddle.dispose();
+        for(Brick brick : bricks){
+            brick.dispose();
+        }
     }
 }

@@ -21,6 +21,7 @@ public class MyGdxGame extends Game implements ApplicationListener {
 	DelayedRemovalArray<Brick> bricks;
 	public static MenuScreen menuScreen;
 	public static GameScreen gameScreen;
+	public static FinishedScreen finishedScreen;
 
 	int brickAmount = 20;
 	@Override
@@ -28,6 +29,7 @@ public class MyGdxGame extends Game implements ApplicationListener {
 		//init();
 		menuScreen = new MenuScreen(this);
 		gameScreen = new GameScreen(this);
+		//finishedScreen = new FinishedScreen(this);
 		setScreen(menuScreen);
 	}
 
@@ -58,38 +60,12 @@ public class MyGdxGame extends Game implements ApplicationListener {
 
 	@Override
 	public void render () {
-		/*Gdx.gl.glClearColor(.5f, 0.5f, 0.5f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		paddle.render(batch);
-		ball.render(batch);
-
-		update(Gdx.graphics.getDeltaTime());
-
-		for (Brick brick: bricks) {
-			brick.render(batch);
-			if(ball.collider.overlaps(brick.collider)){
-				bricks.removeValue(brick, false);
-				System.out.print("Collide!!!");
-			}
-		}
-
-
-		batch.end();*/
-
 		super.render();
 	}
 
 
-	/*public void update(float deltaTime){
-		paddle.update(deltaTime);
-		ball.update(deltaTime);
-
-	}*/
-
 	@Override
 	public void dispose () {
-		batch.dispose();
-		paddle.dispose();
+		super.dispose();
 	}
 }

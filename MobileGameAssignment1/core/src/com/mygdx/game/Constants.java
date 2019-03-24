@@ -7,5 +7,5 @@ package com.mygdx.game;
 public class Constants {
     public static final int PADDLE_SPEED = 500;
     public static final int BALL_X_SPEED = 80;
-    public static final int BALL_Y_SPEED = 340;
+    public static final int BALL_Y_SPEED = 400;
 }

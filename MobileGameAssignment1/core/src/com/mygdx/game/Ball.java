@@ -65,6 +65,8 @@ public class Ball {
                     position.x <= 0 + ballTexture.getWidth()){
                 xSpeed *= -1;
             }
+
+            //the ball only collide once instead of checking collision every frame
             if((position.y > MyGdxGame.screenHeight ||
                     (position.y <=
                             paddleToAttach.position.y + paddleToAttach.getTexture().getHeight()

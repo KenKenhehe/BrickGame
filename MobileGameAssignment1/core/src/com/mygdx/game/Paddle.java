@@ -24,10 +24,13 @@ public class Paddle {
     }
 
     public void update(float deltaTime){
+        //collider's position correspond to paddle's position
         collider.setPosition(position.x, position.y);
 
-        position.x = Gdx.input.getX();
-
+        if(Gdx.input.isTouched()){
+            position.x = Gdx.input.getX();
+        }
+        //does not allow paddle to go out of bound
         if(position.x > MyGdxGame.screenWidth - paddleTexture.getWidth()){
             position.x = MyGdxGame.screenWidth - paddleTexture.getWidth();
         }
