@@ -26,13 +26,7 @@ public class Paddle {
     public void update(float deltaTime){
         collider.setPosition(position.x, position.y);
 
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            position.x -= Constants.PADDLE_SPEED * deltaTime;
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            position.x += Constants.PADDLE_SPEED * deltaTime;
-        }
+        position.x = Gdx.input.getX();
 
         if(position.x > MyGdxGame.screenWidth - paddleTexture.getWidth()){
             position.x = MyGdxGame.screenWidth - paddleTexture.getWidth();

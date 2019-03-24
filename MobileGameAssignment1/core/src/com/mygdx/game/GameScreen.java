@@ -20,7 +20,7 @@ public class GameScreen implements Screen{
     Paddle paddle;
     Ball ball;
     DelayedRemovalArray<Brick> bricks;
-
+    boolean canLaunch = false;
 
     int brickAmount = 20;
 

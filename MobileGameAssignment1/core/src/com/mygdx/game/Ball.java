@@ -18,6 +18,7 @@ public class Ball {
     Vector2 position;
     Texture ballTexture;
     public boolean isLaunched;
+    public boolean canLaunch = false;
     Random r1;
     Paddle paddleToAttach;
     float ranNum;
@@ -33,6 +34,7 @@ public class Ball {
         r1 = new Random();
         ranNum = MathUtils.random(-1f, 1f);
         this.paddleToAttach = paddleToAttach;
+        //initialize the collider's position to be at the center of the ball position
         collider = new Rectangle(position.x, position.y, ballTexture.getWidth(), ballTexture.getHeight());
         xSpeed = ranNum * Constants.BALL_X_SPEED;
         ySpeed = Constants.BALL_Y_SPEED;
@@ -46,15 +48,16 @@ public class Ball {
 
     public void update(float deltaTime){
         collider.setPosition(position);
+        //when the user didn't press the launch, ball should attach to the paddle
         if (isLaunched == false){
             position.x =
                     paddleToAttach.position.x +
                             paddleToAttach.getTexture().getWidth() / 2 - getBallTexture().getWidth() / 2;
         }
-        if(isLaunched == false && Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-
+        if(isLaunched == false && Gdx.input.justTouched()){
             isLaunched = true;
         }
+        //when launched, ball no longer attached to the paddle and respond to collision
         else if (isLaunched == true){
             position.y += ySpeed * deltaTime;
             position.x += xSpeed * deltaTime;
