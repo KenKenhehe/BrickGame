@@ -31,6 +31,7 @@ public class Ball {
     public Ball(Vector2 position, Paddle paddleToAttach){
         this.position = position;
         ballTexture = new Texture("Ball.png");
+
         r1 = new Random();
         ranNum = MathUtils.random(-1f, 1f);
         this.paddleToAttach = paddleToAttach;

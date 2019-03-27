@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
 import com.badlogic.gdx.math.Vector2;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.math.*;
 
 public class Brick {
 
+    Sprite sprite;
     Vector2 position;
     Texture[] brickTexturesToChoose = new Texture[4];
     Texture brickTexture;
@@ -19,17 +21,24 @@ public class Brick {
     Rectangle collider;
 
     public Brick(Vector2 position){
+
         for (int i  = 0; i < brickTexturesToChoose.length; i++){
             brickTexturesToChoose[i] = new Texture("Brick" + (i + 1) + ".png");
         }
+        brickTexture = brickTexturesToChoose[MathUtils.random(3)];
+        sprite = new Sprite(brickTexture);
+        sprite.setSize(128, 16);
         this.position = position;
         //choose the brick randomly
-        brickTexture = brickTexturesToChoose[MathUtils.random(3)];
-        collider = new Rectangle(position.x, position.y, brickTexture.getWidth(), brickTexture.getHeight());
+
+        collider = new Rectangle(position.x, position.y, sprite.getWidth(), sprite.getHeight());
+
     }
 
     public void render(SpriteBatch batch){
-        batch.draw(brickTexture, position.x, position.y);
+        //batch.draw(brickTexture, position.x, position.y);
+        sprite.draw(batch);
+        sprite.setPosition(position.x, position.y);
     }
 
     public void update(float deltaTime){

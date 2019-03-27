@@ -25,6 +25,8 @@ public class GameScreen implements Screen{
     boolean canLaunch = false;
     boolean isPause = false;
     int brickAmount = 20;
+    int brickColumn = 5;
+    int brickRow = 4;
 
     public GameScreen(MyGdxGame game){
         this.game = game;
@@ -44,12 +46,22 @@ public class GameScreen implements Screen{
         batch = new SpriteBatch();
 
         for(int i = 0; i < brickAmount; i++){
+
             bricks.add(new Brick(new Vector2(0, 0)));
-            bricks.get(i).position = new Vector2(
-                    (bricks.get(i).brickTexture.getWidth()) * i,
+           /* bricks.get(i).position = new Vector2(
+                    (bricks.get(i).sprite.getWidth()) * i,
                     MyGdxGame.screenHeight - 32
             );
             bricks.get(i).collider.setPosition(bricks.get(i).position);
+*/
+        }
+        for (Brick brick:
+             bricks) {
+            for(int i = 0; i < brickColumn; i++){
+                for (int j = 0; j <brickRow; j++ ){
+                    brick.position = new Vector2(brick.sprite.getWidth() * i, brick.sprite.getHeight() * j);
+                }
+            }
 
         }
     }
@@ -80,6 +92,7 @@ public class GameScreen implements Screen{
         batch.begin();
         paddle.render(batch);
         ball.render(batch);
+
 
         if(isPause == false) {
             update(Gdx.graphics.getDeltaTime());

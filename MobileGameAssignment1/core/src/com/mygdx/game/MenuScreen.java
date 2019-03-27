@@ -32,8 +32,8 @@ public class MenuScreen implements Screen {
         batch = new SpriteBatch();
         stage = new Stage();
         skin = new Skin(Gdx.files.internal("uiskin.json"));
-        startButton = new TextButton("Start!", skin, "default");
-        quitButton = new TextButton("Quit", skin, "default");
+        startButton = new TextButton("Play", skin, "default");
+        quitButton = new TextButton("Exit", skin, "default");
         startButton.setHeight(64);
         startButton.setWidth(256);
         quitButton.setHeight(64);
