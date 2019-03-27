@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.utils.DelayedRemovalArray;
  */
 
 public class GameScreen implements Screen{
+
     MyGdxGame game;
     SpriteBatch batch;
     public boolean gameOver = false;
@@ -21,8 +23,8 @@ public class GameScreen implements Screen{
     Ball ball;
     DelayedRemovalArray<Brick> bricks;
     boolean canLaunch = false;
-
-    int brickAmount = 1;
+    boolean isPause = false;
+    int brickAmount = 10;
 
     public GameScreen(MyGdxGame game){
         this.game = game;
@@ -79,8 +81,12 @@ public class GameScreen implements Screen{
         paddle.render(batch);
         ball.render(batch);
 
-        update(Gdx.graphics.getDeltaTime());
-
+        if(isPause == false) {
+            update(Gdx.graphics.getDeltaTime());
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            isPause = !(isPause);
+        }
         for (Brick brick: bricks) {
             brick.render(batch);
             //if collide, destroy the corresponding brick
@@ -114,6 +120,7 @@ public class GameScreen implements Screen{
 
     @Override
     public void dispose () {
+        ball.dispose();
         batch.dispose();
         paddle.dispose();
         for(Brick brick : bricks){
