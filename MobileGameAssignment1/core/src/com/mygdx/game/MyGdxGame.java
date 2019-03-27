@@ -14,8 +14,8 @@ import com.badlogic.gdx.utils.DelayedRemovalArray;
 public class MyGdxGame extends Game implements ApplicationListener {
 	SpriteBatch batch;
 	public boolean gameOver = false;
-	public static final int screenWidth = 480;
-	public static final int screenHeight = 640;
+	public static final int screenWidth = 640;
+	public static final int screenHeight = 480;
 	Paddle paddle;
 	Ball ball;
 	DelayedRemovalArray<Brick> bricks;

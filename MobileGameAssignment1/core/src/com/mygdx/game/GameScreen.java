@@ -24,7 +24,7 @@ public class GameScreen implements Screen{
     DelayedRemovalArray<Brick> bricks;
     boolean canLaunch = false;
     boolean isPause = false;
-    int brickAmount = 10;
+    int brickAmount = 20;
 
     public GameScreen(MyGdxGame game){
         this.game = game;
@@ -47,7 +47,7 @@ public class GameScreen implements Screen{
             bricks.add(new Brick(new Vector2(0, 0)));
             bricks.get(i).position = new Vector2(
                     (bricks.get(i).brickTexture.getWidth()) * i,
-                    screenHeight - 32
+                    MyGdxGame.screenHeight - 32
             );
             bricks.get(i).collider.setPosition(bricks.get(i).position);
 

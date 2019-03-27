@@ -53,7 +53,7 @@ public class FinishedScreen implements Screen {
         batch.begin();
         stage.draw();
         if(restartButton.isPressed()){
-            game.setScreen(MyGdxGame.menuScreen);
+            game.setScreen(MyGdxGame.gameScreen);
         }
         batch.end();
     }
