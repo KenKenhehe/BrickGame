@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.DelayedRemovalArray;
 
 import java.util.Random;
 /**
@@ -23,12 +24,13 @@ public class Ball {
     Paddle paddleToAttach;
     float ranNum;
     Rectangle collider;
-
+    DelayedRemovalArray<BallHitFX> ballHitFXes;
     float xSpeed ;
     float ySpeed;
     boolean hasCollide;
 
     public Ball(Vector2 position, Paddle paddleToAttach){
+        ballHitFXes = new DelayedRemovalArray<BallHitFX>();
         this.position = position;
         ballTexture = new Texture("Ball.png");
 
@@ -44,6 +46,12 @@ public class Ball {
     public void render(SpriteBatch batch){
         if(ballTexture != null){
             batch.draw(ballTexture, position.x, position.y);
+        }
+        for (BallHitFX fx : ballHitFXes){
+            fx.render(batch);
+            if(fx.ballHitAni.getFrameNum() == 5){
+                ballHitFXes.removeValue(fx, true);
+            }
         }
     }
 
@@ -65,6 +73,8 @@ public class Ball {
             if(position.x >= MyGdxGame.screenWidth - ballTexture.getWidth() ||
                     position.x <= 0 + ballTexture.getWidth()){
                 xSpeed *= -1;
+                ballHitFXes.add(new BallHitFX(position));
+                System.out.print(position);
             }
 
             //the ball only collide once instead of checking collision every frame
@@ -75,12 +85,17 @@ public class Ball {
             {
                 hasCollide = true;
                 ySpeed *= -1;
+                ballHitFXes.add(new BallHitFX(position));
+                System.out.print(position);
             }
             else{
                 hasCollide = false;
             }
         }
 
+        for (BallHitFX fx : ballHitFXes){
+            fx.update(deltaTime);
+        }
 
     }
 

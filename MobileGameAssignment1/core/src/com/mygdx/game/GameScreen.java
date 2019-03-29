@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 
@@ -22,19 +24,24 @@ public class GameScreen implements Screen{
     Paddle paddle;
     Ball ball;
     DelayedRemovalArray<Brick> bricks;
+    DelayedRemovalArray<BrickExplodeFX> brickExplodeFXes;
     boolean canLaunch = false;
     boolean isPause = false;
-    int brickAmount = 20;
+    int brickAmount = 5;
     int brickColumn = 5;
     int brickRow = 4;
+    Texture brickExplode;
+    TextureRegion brickExplodeAni;
 
     public GameScreen(MyGdxGame game){
         this.game = game;
     }
 
+
+
     public void init(){
         bricks = new DelayedRemovalArray<Brick>();
-
+        brickExplodeFXes = new DelayedRemovalArray<BrickExplodeFX>();
         paddle = new Paddle(new Vector2(0, 0));
         paddle.position = new Vector2(screenWidth / 2 - paddle.getTexture().getWidth() /2,32);
 
@@ -45,25 +52,59 @@ public class GameScreen implements Screen{
 
         batch = new SpriteBatch();
 
-        for(int i = 0; i < brickAmount; i++){
+        for(int i = 0; i < 5; i++){
 
             bricks.add(new Brick(new Vector2(0, 0)));
-           /* bricks.get(i).position = new Vector2(
+            bricks.get(i).position = new Vector2(
                     (bricks.get(i).sprite.getWidth()) * i,
                     MyGdxGame.screenHeight - 32
             );
             bricks.get(i).collider.setPosition(bricks.get(i).position);
-*/
-        }
-        for (Brick brick:
-             bricks) {
-            for(int i = 0; i < brickColumn; i++){
-                for (int j = 0; j <brickRow; j++ ){
-                    brick.position = new Vector2(brick.sprite.getWidth() * i, brick.sprite.getHeight() * j);
-                }
-            }
 
         }
+
+        for(int i = 0; i < 5; i++){
+
+            bricks.add(new Brick(new Vector2(0, 0)));
+            bricks.get(i + 5).position = new Vector2(
+                    (bricks.get(i + 5).sprite.getWidth()) * i,
+                    MyGdxGame.screenHeight - 48
+            );
+            bricks.get(i + 5).collider.setPosition(bricks.get(i + 5).position);
+
+        }
+
+        for(int i = 0; i < 5; i++){
+
+            bricks.add(new Brick(new Vector2(0, 0)));
+            bricks.get(i + 10).position = new Vector2(
+                    (bricks.get(i + 10).sprite.getWidth()) * i,
+                    MyGdxGame.screenHeight - 64
+            );
+            bricks.get(i + 10).collider.setPosition(bricks.get(i + 10).position);
+
+        }
+
+        for(int i = 0; i < 5; i++){
+
+            bricks.add(new Brick(new Vector2(0, 0)));
+            bricks.get(i + 15).position = new Vector2(
+                    (bricks.get(i + 15).sprite.getWidth()) * i,
+                    MyGdxGame.screenHeight - 80
+            );
+            bricks.get(i + 15).collider.setPosition(bricks.get(i + 15).position);
+
+        }
+        /*for (Brick brick:
+             bricks) {
+            for(int i = 0; i < brickColumn; i++){
+                System.out.println(brick.position);
+                for (int j = 0; j <brickRow; j++ ){
+                    brick.position = new Vector2(brick.sprite.getWidth() * i, MyGdxGame.screenHeight - brick.sprite.getHeight() * j);
+                }
+            }
+            brick.collider.setPosition(brick.position);
+        }*/
     }
 
 
@@ -104,10 +145,21 @@ public class GameScreen implements Screen{
             brick.render(batch);
             //if collide, destroy the corresponding brick
             if(ball.collider.overlaps(brick.collider)) {
+                brickExplodeFXes.add(new BrickExplodeFX(brick.position));
                 bricks.removeValue(brick, true);
                 ball.ySpeed *= -1;
+                ball.hasCollide = true;
             }
         }
+
+        for (BrickExplodeFX fx : brickExplodeFXes){
+            fx.render(batch);
+            fx.update(delta);
+            if(fx.brickAni.getFrameNum() == 2){
+                brickExplodeFXes.removeValue(fx, true);
+            }
+        }
+
         batch.end();
     }
 
