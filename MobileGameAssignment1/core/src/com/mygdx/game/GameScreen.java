@@ -32,6 +32,7 @@ public class GameScreen implements Screen{
     int brickRow = 4;
     Texture brickExplode;
     TextureRegion brickExplodeAni;
+    Texture background;
 
     public GameScreen(MyGdxGame game){
         this.game = game;
@@ -40,6 +41,7 @@ public class GameScreen implements Screen{
 
 
     public void init(){
+        background = new Texture("BackgroundGame.png");
         bricks = new DelayedRemovalArray<Brick>();
         brickExplodeFXes = new DelayedRemovalArray<BrickExplodeFX>();
         paddle = new Paddle(new Vector2(0, 0));
@@ -95,16 +97,6 @@ public class GameScreen implements Screen{
             bricks.get(i + 15).collider.setPosition(bricks.get(i + 15).position);
 
         }
-        /*for (Brick brick:
-             bricks) {
-            for(int i = 0; i < brickColumn; i++){
-                System.out.println(brick.position);
-                for (int j = 0; j <brickRow; j++ ){
-                    brick.position = new Vector2(brick.sprite.getWidth() * i, MyGdxGame.screenHeight - brick.sprite.getHeight() * j);
-                }
-            }
-            brick.collider.setPosition(brick.position);
-        }*/
     }
 
 
@@ -131,12 +123,16 @@ public class GameScreen implements Screen{
         Gdx.gl.glClearColor(.5f, 0.5f, 0.5f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
+        batch.draw(background, 0, 0);
         paddle.render(batch);
         ball.render(batch);
 
 
         if(isPause == false) {
             update(Gdx.graphics.getDeltaTime());
+        }
+        else{
+
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             isPause = !(isPause);

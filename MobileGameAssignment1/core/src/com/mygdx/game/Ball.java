@@ -35,7 +35,7 @@ public class Ball {
         ballTexture = new Texture("Ball.png");
 
         r1 = new Random();
-        ranNum = MathUtils.random(-1f, 1f);
+        ranNum = MathUtils.random(-5f, 5f);
         this.paddleToAttach = paddleToAttach;
         //initialize the collider's position to be at the center of the ball position
         collider = new Rectangle(position.x, position.y, ballTexture.getWidth(), ballTexture.getHeight());

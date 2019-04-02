@@ -31,7 +31,6 @@ public class BrickExplodeFX {
         sprite.setScale(1.4f);
         sprite.setPosition(position.x + 20, position.y - sprite.getTexture().getHeight() / 2);
         sprite.draw(batch);
-        //brickAni.update(deltaTime);
     }
 
     public void update(float deltaTime){

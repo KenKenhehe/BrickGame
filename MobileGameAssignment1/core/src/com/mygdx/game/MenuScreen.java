@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -22,6 +24,8 @@ public class MenuScreen implements Screen {
     Stage stage;
     Button startButton;
     Button quitButton;
+    Texture background;
+    Image image;
 
     public MenuScreen(MyGdxGame game){
         this.game = game;
@@ -29,6 +33,8 @@ public class MenuScreen implements Screen {
     }
     @Override
     public void show() {
+        background = new Texture("BackgroundStart.png");
+        image = new Image(background);
         batch = new SpriteBatch();
         stage = new Stage();
         skin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -42,8 +48,10 @@ public class MenuScreen implements Screen {
                 MyGdxGame.screenHeight/2  );
 
         quitButton.setPosition(startButton.getX(), startButton.getY() - 128);
+        stage.addActor(image);
         stage.addActor(startButton);
         stage.addActor(quitButton);
+
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -53,6 +61,7 @@ public class MenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         stage.draw();
+
         if(startButton.isPressed()){
             game.setScreen(MyGdxGame.gameScreen);
         }

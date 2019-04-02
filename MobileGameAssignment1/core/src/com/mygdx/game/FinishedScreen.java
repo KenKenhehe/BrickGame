@@ -3,10 +3,12 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -26,6 +28,8 @@ public class FinishedScreen implements Screen {
     Stage stage;
     Skin skin;
 
+    Image image;
+
     public boolean isWin = false;
     String stateText;
     public FinishedScreen(MyGdxGame game, boolean isWin){
@@ -43,7 +47,7 @@ public class FinishedScreen implements Screen {
     @Override
     public void show() {
         font = new BitmapFont(Gdx.files.internal("default.fnt"));
-
+        image = new Image(new Texture("BackgroundFinish.png"));
         stage = new Stage();
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         label = new Label(stateText,skin);
@@ -63,6 +67,7 @@ public class FinishedScreen implements Screen {
         exitButton.setWidth(256);
         exitButton.setPosition(MyGdxGame.screenWidth / 2 - exitButton.getWidth() / 2,
                 MyGdxGame.screenHeight / 2 - 128);
+        stage.addActor(image);
         stage.addActor(restartButton);
         stage.addActor(exitButton);
         stage.addActor(label);
