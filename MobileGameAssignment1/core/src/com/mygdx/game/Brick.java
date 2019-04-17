@@ -27,7 +27,7 @@ public class Brick {
         }
         brickTexture = brickTexturesToChoose[MathUtils.random(3)];
         sprite = new Sprite(brickTexture);
-        sprite.setSize(128, 16);
+        sprite.setSize(32, 16);
         this.position = position;
         //choose the brick randomly
 

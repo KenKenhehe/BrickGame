@@ -31,6 +31,7 @@ public class MyGdxGame extends Game implements ApplicationListener {
 		gameScreen = new GameScreen(this);
 		//finishedScreen = new FinishedScreen(this);
 		setScreen(menuScreen);
+
 	}
 
 	public void init(){

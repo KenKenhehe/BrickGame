@@ -28,8 +28,8 @@ public class BrickExplodeFX {
     }
 
     public void render(SpriteBatch batch){
-        sprite.setScale(1.4f);
-        sprite.setPosition(position.x + 20, position.y - sprite.getTexture().getHeight() / 2);
+        sprite.setScale(.5f);
+        sprite.setPosition(position.x - 20, position.y - sprite.getTexture().getHeight() / 2);
         sprite.draw(batch);
     }
 

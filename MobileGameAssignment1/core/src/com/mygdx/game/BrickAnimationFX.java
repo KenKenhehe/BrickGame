@@ -38,20 +38,20 @@ public class BrickAnimationFX {
         }
     }
 
-    public TextureRegion getFrame(){
+public TextureRegion getFrame(){
         return frames.get(frame);
-    }
+        }
 
-    public Array<TextureRegion> getRegion(){
+public Array<TextureRegion> getRegion(){
         return frames;
-    }
+        }
 
-    public int getFrameNum(){
+public int getFrameNum(){
         return frame;
-    }
+        }
 
-    public void setFrameNum(int frame){
+public void setFrameNum(int frame){
         this.frame = frame;
-    }
+        }
 
-}
+        }

@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
 import com.badlogic.gdx.math.MathUtils;
@@ -28,24 +29,27 @@ public class Ball {
     float xSpeed ;
     float ySpeed;
     boolean hasCollide;
-
+    Sprite sprite;
     public Ball(Vector2 position, Paddle paddleToAttach){
         ballHitFXes = new DelayedRemovalArray<BallHitFX>();
         this.position = position;
         ballTexture = new Texture("Ball.png");
-
+        sprite = new Sprite(ballTexture);
+        sprite.setScale(.7f);
         r1 = new Random();
         ranNum = MathUtils.random(-5f, 5f);
         this.paddleToAttach = paddleToAttach;
         //initialize the collider's position to be at the center of the ball position
-        collider = new Rectangle(position.x, position.y, ballTexture.getWidth(), ballTexture.getHeight());
+        collider = new Rectangle(position.x, position.y, sprite.getWidth(), sprite.getHeight());
         xSpeed = ranNum * Constants.BALL_X_SPEED;
         ySpeed = Constants.BALL_Y_SPEED;
     }
 
     public void render(SpriteBatch batch){
         if(ballTexture != null){
-            batch.draw(ballTexture, position.x, position.y);
+            sprite.setPosition(position.x, position.y);
+            //batch.draw(ballTexture, position.x, position.y);
+            sprite.draw(batch);
         }
         for (BallHitFX fx : ballHitFXes){
             fx.render(batch);
@@ -71,7 +75,7 @@ public class Ball {
             position.y += ySpeed * deltaTime;
             position.x += xSpeed * deltaTime;
             if(position.x >= MyGdxGame.screenWidth - ballTexture.getWidth() ||
-                    position.x <= 0 + ballTexture.getWidth()){
+                    position.x <= 0 + sprite.getWidth()){
                 xSpeed *= -1;
                 ballHitFXes.add(new BallHitFX(position));
                 System.out.print(position);

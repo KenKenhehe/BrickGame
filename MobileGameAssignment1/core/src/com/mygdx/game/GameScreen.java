@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 
 /**
@@ -33,6 +36,9 @@ public class GameScreen implements Screen{
     Texture brickExplode;
     TextureRegion brickExplodeAni;
     Texture background;
+    Label pauseText;
+    Stage stage;
+    Skin skin;
 
     public GameScreen(MyGdxGame game){
         this.game = game;
@@ -41,6 +47,13 @@ public class GameScreen implements Screen{
 
 
     public void init(){
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        stage = new Stage();
+        pauseText = new Label("Paused\nPress ESCAPE to unpause", skin);
+        pauseText.setPosition(Gdx.graphics.getWidth() / 2 - pauseText.getWidth() / 2, Gdx.graphics.getHeight()/2);
+        pauseText.setWidth(200);
+        pauseText.setHeight(32);
+        stage.addActor(pauseText);
         background = new Texture("BackgroundGame.png");
         bricks = new DelayedRemovalArray<Brick>();
         brickExplodeFXes = new DelayedRemovalArray<BrickExplodeFX>();
@@ -54,7 +67,7 @@ public class GameScreen implements Screen{
 
         batch = new SpriteBatch();
 
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 20; i++){
 
             bricks.add(new Brick(new Vector2(0, 0)));
             bricks.get(i).position = new Vector2(
@@ -65,36 +78,36 @@ public class GameScreen implements Screen{
 
         }
 
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 20; i++){
 
             bricks.add(new Brick(new Vector2(0, 0)));
-            bricks.get(i + 5).position = new Vector2(
+            bricks.get(i + 20).position = new Vector2(
                     (bricks.get(i + 5).sprite.getWidth()) * i,
                     MyGdxGame.screenHeight - 48
             );
-            bricks.get(i + 5).collider.setPosition(bricks.get(i + 5).position);
+            bricks.get(i + 20).collider.setPosition(bricks.get(i + 20).position);
 
         }
 
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 20; i++){
 
             bricks.add(new Brick(new Vector2(0, 0)));
-            bricks.get(i + 10).position = new Vector2(
-                    (bricks.get(i + 10).sprite.getWidth()) * i,
+            bricks.get(i + 40).position = new Vector2(
+                    (bricks.get(i + 40).sprite.getWidth()) * i,
                     MyGdxGame.screenHeight - 64
             );
-            bricks.get(i + 10).collider.setPosition(bricks.get(i + 10).position);
+            bricks.get(i + 40).collider.setPosition(bricks.get(i + 40).position);
 
         }
 
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 20; i++){
 
             bricks.add(new Brick(new Vector2(0, 0)));
-            bricks.get(i + 15).position = new Vector2(
-                    (bricks.get(i + 15).sprite.getWidth()) * i,
+            bricks.get(i + 60).position = new Vector2(
+                    (bricks.get(i + 60).sprite.getWidth()) * i,
                     MyGdxGame.screenHeight - 80
             );
-            bricks.get(i + 15).collider.setPosition(bricks.get(i + 15).position);
+            bricks.get(i + 60).collider.setPosition(bricks.get(i + 60).position);
 
         }
     }
@@ -132,7 +145,7 @@ public class GameScreen implements Screen{
             update(Gdx.graphics.getDeltaTime());
         }
         else{
-
+            pauseText.draw(batch, 1);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             isPause = !(isPause);
