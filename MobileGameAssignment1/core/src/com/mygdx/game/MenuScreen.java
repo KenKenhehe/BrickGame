@@ -57,7 +57,7 @@ public class MenuScreen implements Screen {
         stage.addActor(quitButton);
 
         Gdx.input.setInputProcessor(stage);
-        bgMusic.play();
+        //bgMusic.play();
         bgMusic.loop();
     }
 
@@ -67,7 +67,7 @@ public class MenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         stage.draw();
-
+        //set to play screen
         if(startButton.isPressed()){
             clickSound.play();
             game.setScreen(MyGdxGame.gameScreen);

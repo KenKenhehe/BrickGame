@@ -69,6 +69,7 @@ public class GameScreen implements Screen{
 
         batch = new SpriteBatch();
 
+        // add 20 bricks each row
         for(int i = 0; i < 20; i++){
 
             bricks.add(new Brick(new Vector2(0, 0)));
@@ -142,7 +143,7 @@ public class GameScreen implements Screen{
         paddle.render(batch);
         ball.render(batch);
 
-
+        // pasue the game will, all objects will stop update
         if(isPause == false) {
             update(Gdx.graphics.getDeltaTime());
         }

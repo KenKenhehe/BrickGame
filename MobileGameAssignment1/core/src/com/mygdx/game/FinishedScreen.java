@@ -39,6 +39,7 @@ public class FinishedScreen implements Screen {
         this.isWin = isWin;
         this.game = game;
         batch = new SpriteBatch();
+        //use different text for winning and losing
         if(isWin == false){
             stateText = "GAME OVER!";
         }
