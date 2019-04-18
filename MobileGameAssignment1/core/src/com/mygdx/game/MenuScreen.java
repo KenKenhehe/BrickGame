@@ -28,13 +28,14 @@ public class MenuScreen implements Screen {
     Texture background;
     Image image;
     Sound clickSound;
-
+    Sound bgMusic;
     public MenuScreen(MyGdxGame game){
         this.game = game;
 
     }
     @Override
     public void show() {
+        bgMusic = Gdx.audio.newSound(Gdx.files.internal("in the end.wav"));
         clickSound = Gdx.audio.newSound(Gdx.files.internal("Button.wav"));
         background = new Texture("BackgroundStart.png");
         image = new Image(background);
@@ -56,6 +57,8 @@ public class MenuScreen implements Screen {
         stage.addActor(quitButton);
 
         Gdx.input.setInputProcessor(stage);
+        bgMusic.play();
+        bgMusic.loop();
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,7 +23,7 @@ public class MyGdxGame extends Game implements ApplicationListener {
 	public static MenuScreen menuScreen;
 	public static GameScreen gameScreen;
 	public static FinishedScreen finishedScreen;
-
+	Sound bgMusic;
 	int brickAmount = 20;
 	@Override
 	public void create () {
@@ -31,6 +32,7 @@ public class MyGdxGame extends Game implements ApplicationListener {
 		gameScreen = new GameScreen(this);
 		//finishedScreen = new FinishedScreen(this);
 		setScreen(menuScreen);
+
 
 	}
 
