@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,6 +27,7 @@ public class MenuScreen implements Screen {
     Button quitButton;
     Texture background;
     Image image;
+    Sound clickSound;
 
     public MenuScreen(MyGdxGame game){
         this.game = game;
@@ -33,6 +35,7 @@ public class MenuScreen implements Screen {
     }
     @Override
     public void show() {
+        clickSound = Gdx.audio.newSound(Gdx.files.internal("Button.wav"));
         background = new Texture("BackgroundStart.png");
         image = new Image(background);
         batch = new SpriteBatch();
@@ -63,6 +66,7 @@ public class MenuScreen implements Screen {
         stage.draw();
 
         if(startButton.isPressed()){
+            clickSound.play();
             game.setScreen(MyGdxGame.gameScreen);
         }
         else if(quitButton.isPressed()){

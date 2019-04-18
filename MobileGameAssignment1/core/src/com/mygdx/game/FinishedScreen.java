@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -32,6 +33,8 @@ public class FinishedScreen implements Screen {
 
     public boolean isWin = false;
     String stateText;
+
+    Sound clickSound;
     public FinishedScreen(MyGdxGame game, boolean isWin){
         this.isWin = isWin;
         this.game = game;
@@ -46,6 +49,7 @@ public class FinishedScreen implements Screen {
     }
     @Override
     public void show() {
+        clickSound = Gdx.audio.newSound(Gdx.files.internal("Button.wav"));
         font = new BitmapFont(Gdx.files.internal("default.fnt"));
         image = new Image(new Texture("BackgroundFinish.png"));
         stage = new Stage();
@@ -82,6 +86,7 @@ public class FinishedScreen implements Screen {
         font.draw(batch, stateText, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight());
         stage.draw();
         if(restartButton.isPressed()){
+            clickSound.play();
             game.setScreen(MyGdxGame.gameScreen);
         }
         else if(exitButton.isPressed()){

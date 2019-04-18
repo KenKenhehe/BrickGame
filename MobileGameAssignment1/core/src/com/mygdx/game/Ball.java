@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,7 +31,9 @@ public class Ball {
     float ySpeed;
     boolean hasCollide;
     Sprite sprite;
+    Sound hitPaddleSound;
     public Ball(Vector2 position, Paddle paddleToAttach){
+        hitPaddleSound = Gdx.audio.newSound(Gdx.files.internal("FS_LITTLE_TAP_01.wav"));
         ballHitFXes = new DelayedRemovalArray<BallHitFX>();
         this.position = position;
         ballTexture = new Texture("Ball.png");
@@ -76,6 +79,7 @@ public class Ball {
             position.x += xSpeed * deltaTime;
             if(position.x >= MyGdxGame.screenWidth - ballTexture.getWidth() ||
                     position.x <= 0 + sprite.getWidth()){
+                hitPaddleSound.play();
                 xSpeed *= -1;
                 ballHitFXes.add(new BallHitFX(position));
                 System.out.print(position);
@@ -89,6 +93,7 @@ public class Ball {
             {
                 hasCollide = true;
                 ySpeed *= -1;
+                hitPaddleSound.play();
                 ballHitFXes.add(new BallHitFX(position));
                 System.out.print(position);
             }

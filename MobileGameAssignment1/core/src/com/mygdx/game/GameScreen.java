@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -39,7 +40,7 @@ public class GameScreen implements Screen{
     Label pauseText;
     Stage stage;
     Skin skin;
-
+    Sound hitPaddleSound;
     public GameScreen(MyGdxGame game){
         this.game = game;
     }
@@ -47,6 +48,7 @@ public class GameScreen implements Screen{
 
 
     public void init(){
+        hitPaddleSound = Gdx.audio.newSound(Gdx.files.internal("FS_LITTLE_TAP_01.wav"));
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         stage = new Stage();
         pauseText = new Label("Paused\nPress ESCAPE to unpause", skin);

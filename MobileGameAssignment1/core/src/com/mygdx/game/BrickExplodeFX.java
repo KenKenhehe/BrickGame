@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,8 +20,11 @@ public class BrickExplodeFX {
 
     BrickAnimationFX brickAni;
     Vector2 position;
+    Sound explosionSound;
 
     public BrickExplodeFX(Vector2 position){
+        explosionSound = Gdx.audio.newSound(Gdx.files.internal("FS_METALSHOT.wav"));
+        explosionSound.play();
         this.position = position;
         brickExplode = new Texture("BrickExplode.png");
         brickExplodeAni = new TextureRegion(brickExplode);
